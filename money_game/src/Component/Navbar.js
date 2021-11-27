@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import { Button, Container } from 'reactstrap'
-import { Offcanvas, Nav, NavDropdown, Navbar } from 'react-bootstrap'
+import { Offcanvas, Nav, Navbar } from 'react-bootstrap'
 
 
 export default class NavBar extends Component {
@@ -27,7 +27,7 @@ export default class NavBar extends Component {
                                         <tr key={cartItem.id}>
                                             <td>{cartItem.prodoctName}</td>
                                             <td>{cartItem.quantity}</td>
-                                            <td><Button onClick={()=>this.props.deleteToCard(cartItem)} color="danger" outline>Delete</Button></td>
+                                            <td><Button onClick={()=>this.props.deleteToCart(cartItem)} color="danger" outline>Delete</Button></td>
                                         </tr>
                                         ))}
                                     </tbody>
