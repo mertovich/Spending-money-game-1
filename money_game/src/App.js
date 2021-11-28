@@ -3,6 +3,8 @@ import NavBar from './Component/Navbar'
 import ProductList from './Component/ProductList';
 import React, { Component } from 'react'
 import { Container, Col, Row } from 'reactstrap'
+import { ToastContainer, toast } from 'react-toastify';
+
 
 
 export default class App extends Component {
@@ -20,11 +22,40 @@ export default class App extends Component {
     Cart: []
   }
 
+  moneyErrorAlert = () => toast.error("You Don't Have Enough Money", {
+    position: "bottom-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    });
+  addToCartAlert = () => toast.success('Added', {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      });
+  deleteToCartAlert = ()=>{ toast.info('The selected product has been deleted' , {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      });
+  }
+
   addToCart = (product) => {
     var cartList = this.state.Cart
     var result = this.state.TotalMoney - product.pirace
     if (result <= 0) {
-      alert("You Don't Have Enough Money")
+      this.moneyErrorAlert()
       result = this.state.TotalMoney
       return
     }
@@ -36,7 +67,7 @@ export default class App extends Component {
     }
     this.setState({ TotalMoney: result })
     this.setState({ Cart: cartList })
-
+    this.addToCartAlert()
   }
   deleteToCart = (Cart)=>{
     let cartList = this.state.Cart
@@ -48,7 +79,7 @@ export default class App extends Component {
     this.setState({TotalMoney:result})
     })
     this.setState({Cart:newList})
-    
+    this.deleteToCartAlert()
   }
   render() {
     return (
@@ -62,6 +93,7 @@ export default class App extends Component {
           <Row>
             <Col xs='12'>
               <ProductList addToCart={this.addToCart} prodoctList={this.state.Prodoct} />
+              <ToastContainer />
             </Col>
           </Row>
         </Container>
